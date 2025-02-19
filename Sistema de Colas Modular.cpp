@@ -8,10 +8,9 @@
 #define LIMITE_COLA 100  /* Capacidad maxima de la cola */
 #define OCUPADO      1  /* Indicador de Servidor Ocupado */
 #define LIBRE      0  /* Indicador de Servidor Libre */
-#define STREAM 1 /* Stream a utilizar del generador de números aleatorios */
 
 int   sig_tipo_evento, num_clientes_espera, num_esperas_requerido, num_eventos,
-      num_entra_cola, estado_servidor;
+      num_entra_cola, estado_servidor, stream;
 float area_num_entra_cola, area_estado_servidor, media_entre_llegadas, media_atencion,
       tiempo_simulacion, tiempo_llegada[LIMITE_COLA + 1], tiempo_ultimo_evento, tiempo_sig_evento[3],
       total_de_esperas;
@@ -38,7 +37,7 @@ int main(void)  /* Funcion Principal */
 
     /* Lee los parametros de enrtrada. */
     fscanf(parametros, "%f %f %d %d", &media_entre_llegadas, &media_atencion,
-           &num_esperas_requerido, &STREAM);
+           &num_esperas_requerido, &stream);
 
     principalsimulator();
 
@@ -247,5 +246,5 @@ void actualizar_estad_prom_tiempo(void)  /* Actualiza los acumuladores de
 float expon(float media)  /* Funcion generadora de la exponencias */
 {
     /* Retorna una variable aleatoria exponencial con media "media"*/
-    return -media * log(lcgrand(STREAM));
+    return -media * log(lcgrand(stream));
 }
