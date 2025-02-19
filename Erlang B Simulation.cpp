@@ -209,7 +209,7 @@ void salida(void)  /* Funcion evento de salida (EVENTO_2) */
 void reportes(void)  /* Funcion GeneradoraReporte. */
 {
     /* Calcula y estima los estimados de las medidas deseadas de desempe�o */
-    fprintf(resultados, "\n\nNumero clientes perdidos: %11.3d clientes\n\n",
+    fprintf(resultados, "\n\nNumero clientes perdidos %11.3d clientes\n\n",
             num_loss_clients);
     // fprintf(resultados, "Promedio de clientes perdidos: %10.3d\n\n",
     //         num_loss_clients/num_esperas_requerido);
