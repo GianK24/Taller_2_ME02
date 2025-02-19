@@ -6,16 +6,15 @@
 #include "lcgrand.cpp"  /* Encabezado para el generador de numeros aleatorios */
 #include <iostream>
 
-#define LIMITE_COLA 100  /* Capacidad maxima de la cola */
+#define LIMITE_COLA 1000000  /* Capacidad maxima de la cola */
 #define OCUPADO      1  /* Indicador de Servidor Ocupado */
 #define LIBRE      0  /* Indicador de Servidor Libre */
-#define STREAM 1 /* Stream a utilizar del generador de números aleatorios */
 #define TOL 1e-6
 
 using namespace std;
 
 int   sig_tipo_evento, num_clientes_espera, num_esperas_requerido, num_eventos, servidores_ocupados,
-      num_entra_cola, *estado_servidores, CodError, num_servidores, servidor_proximo;
+      num_entra_cola, *estado_servidores, CodError, num_servidores, servidor_proximo, stream;
 float area_num_entra_cola, *area_estado_servidores, alpha_1, lambda_1, alpha_2, lambda_2,
       tiempo_simulacion, tiempo_llegada[LIMITE_COLA + 1], tiempo_ultimo_evento, tiempo_sig_evento[3],
       total_de_esperas, *tiempos_salida, tiempo_en_cola;
@@ -43,8 +42,8 @@ int main(void) {  /* Funcion Principal */
     num_eventos = 2;
 
     /* Lee los parametros de entrada. */
-    fscanf(parametros, "%f %f %f %f %d %d", &alpha_1, &lambda_1, &alpha_2, &lambda_2,
-           &num_esperas_requerido, &num_servidores);
+    fscanf(parametros, "%f %f %f %f %d %d %d", &alpha_1, &lambda_1, &alpha_2, &lambda_2,
+           &num_esperas_requerido, &num_servidores, &stream);
 
     SimuladorPrincipal();
 
@@ -298,7 +297,7 @@ double gamma_cdf(float alpha, float lambda, float x){
 
 float gamma_random(float alpha, float lambda) {
     /* Retorna una variable aleatoria exponencial con media "media"*/
-    float u = lcgrand(STREAM);
+    float u = lcgrand(stream);
     float a = 0;
     float b = pow(10,alpha+lambda+1);
     while(abs(b-a) > TOL){
